@@ -1,8 +1,8 @@
 //required 
-import mongoose from "mongoose";
-const schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const resistance = new Schema({
+const Resistance = new Schema({
     type:{
         type: String,
         trim: true,
@@ -11,6 +11,7 @@ const resistance = new Schema({
     name: {
         type: String,
         trim: true,
+        unique:true,
         required: false
     },
     duration: {
@@ -33,8 +34,6 @@ const resistance = new Schema({
         trim: true,
         required: false
     },
-    
-
-
 });
-
+const resistModel = mongoose.model("resistModel", Resistance);
+module.exports = resistModel;
