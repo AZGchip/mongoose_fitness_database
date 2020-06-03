@@ -126,6 +126,7 @@ function handleToastAnimationEnd() {
   }
 }
 
+// empties form
 function clearInputs() {
   cardioNameInput.value = "";
   nameInput.value = "";
