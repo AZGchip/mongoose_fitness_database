@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express")
-const resistance = require("./models/resistance");
+const resistance = require("./models/workout");
 var app = express();
 var PORT = 7000;
 
