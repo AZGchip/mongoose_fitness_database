@@ -2,15 +2,37 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Workout = new Schema({
-    day: { type: Date },
-    exercises: [{
-        type: Schema.Types.ObjectId,
-        ref: "Exercise"
-      }]
+const WorkoutModel = new Schema({
+    day: { 
+        type: Date,
+        required: false 
+    },
+    exercises: {
+        type: Array,
+        required: false
+    },
+    // totalDuration: {
+    //     type: Number,
+    //     required: false
+    // }
+    
+    
 });
-const workoutModel = mongoose.model("workoutModel", Workout);
-module.exports = workoutModel;
+// WorkoutModel.methods.setTotalDuration = function() {
+//     this.totalDuration = addUp(this.exercises);
+    
+//     return this.totalDuration;
+//   };
+function addUp(exercises){
+    let total = 0 ;
+exercises.forEach(element => {
+   console.log("this is element: "+ element)
+   total += element.duration;
+});
+return total; 
+}
+const Workout = mongoose.model("Workout", WorkoutModel);
+module.exports = Workout;
 // [{
 //     type: {
 //         type: String,

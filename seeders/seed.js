@@ -19,6 +19,7 @@ let workoutSeed = [
         sets: 4
       }
     ]
+   
   },
   {
     day: new Date().setDate(new Date().getDate()-9),
@@ -130,10 +131,29 @@ let workoutSeed = [
         name: "Bench",
         duration: 30,
         distance: 2
+      },
+      {
+        type: "resistance",
+        name: "Military Press",
+        duration: 20,
+        weight: 300,
+        reps: 10,
+        sets: 4
+      },
+      {
+        type: "resistance",
+        name: "Bench Press",
+        duration: 20,
+        weight: 300,
+        reps: 10,
+        sets: 4
       }
     ]
+    
   }
 ];
+
+
 console.log("this is db: "+ mongoose)
 db.deleteMany({})
   .then(() => db.collection.insertMany(workoutSeed))
