@@ -2,25 +2,42 @@
 const db = require("./models/model_hub")
 const path = require("path")
 module.exports = function (app) {
+    //updates contents of created row 
     app.put("/api/workouts/:id", function (req, res) {
         console.log("post data: ");
         console.log(req.body);
-        console.log(req.params.id)
+        const id = req.params.id;
         const rB = req.body;
-        // Workout.create({
-        //     type: rB.type,
-        //     name: rB.name,
-        //     duration: rB.duration,
-        //     weight: rB.weight,
-        //     reps: rB.reps,
-        //     sets: rB.sets
-        // })
-        //     .then(dbExample => {
-        //         console.log(dbExample);
-        //     })
-        //     .catch(({ message }) => {
-        //         console.log(message);
-        //     });
+        let updateContents;
+        //if resistance
+        if (req.body.type === "resistance") {
+            updateContents = {
+                type: rB.type,
+                name: rB.name,
+                duration: rB.duration,
+                weight: rB.weight,
+                reps: rB.reps,
+                sets: rB.sets
+            }
+        }
+        //if cardio
+        else if (req.body.type === "cardio") {
+            updateContents = {
+                type: rB.type,
+                name: rB.name,
+                duration: rB.duration,
+                distance: rB.distance
+
+            }
+        }
+        //updates a row with a matching id with the contents of the req.body
+        db.Workout.findOneAndUpdate(id,{
+            day: new Date().setDate(new Date().getDate()),
+            exercises: updateContents
+        })
+            .then(data => {
+                res.json(data)
+            })
     })
 
     app.get("/exercise", function (req, res) {
@@ -43,9 +60,9 @@ module.exports = function (app) {
 
                     }
                     workout[i].totalDuration = total;
-                  
+
                 }
-                // console.log("this is what is being sent after" + workout)
+                console.log("this is what is being sent after" + workout)
                 res.json(workout);
             })
             .catch(err => {
@@ -57,16 +74,19 @@ module.exports = function (app) {
     app.get("/", function (req, res) {
         res.sendFile(path.join(__dirname, "./public/index.html"));
     });
+    app.get("/stats", function (req, res) {
+        res.sendFile(path.join(__dirname, "./public/stats.html"));
+    });
     app.post("/api/workouts", (req, res) => {
-        
+
         db.Workout.create(req.body)
-        .then(data =>{
-            console.log(data)
-            res.json(data);
-        })
-        .catch(err =>{
-            res.json(err)
-        })
+            .then(data => {
+                console.log(data)
+                res.json(data);
+            })
+            .catch(err => {
+                res.json(err)
+            })
         // db.Activity.create(body)
         //     .then(({ _id }) => db.Workout.findOneAndUpdate({}, { $push: { Activity: _id } }, { new: true }))
         //     .then(data => {

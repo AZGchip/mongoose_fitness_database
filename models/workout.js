@@ -11,10 +11,10 @@ const WorkoutModel = new Schema({
         type: Array,
         required: false
     },
-    // totalDuration: {
-    //     type: Number,
-    //     required: false
-    // }
+    totalDuration: {
+        type: Number,
+        required: false
+    }
     
     
 });
