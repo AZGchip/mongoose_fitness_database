@@ -69,7 +69,15 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
-
+    app.get("/api/workouts/range", function (req, res) {
+        db.Workout.find({})
+    .then(workouts => {
+      res.json(workouts);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+    });
 
     app.get("/", function (req, res) {
         res.sendFile(path.join(__dirname, "./public/index.html"));
