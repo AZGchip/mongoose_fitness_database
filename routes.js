@@ -6,8 +6,8 @@ module.exports = function (app) {
     app.put("/api/workouts/:id", function (req, res) {
         console.log("post data: ");
         console.log(req.body);
-        const id = req.params.id;
-        const rB = req.body;
+        let id = req.params.id;
+        let rB = req.body;
         let updateContents;
         //if resistance
         if (req.body.type === "resistance") {
@@ -31,9 +31,10 @@ module.exports = function (app) {
             }
         }
         //updates a row with a matching id with the contents of the req.body
-        db.Workout.findOneAndUpdate(id,{
-            day: new Date().setDate(new Date().getDate()),
-            exercises: updateContents
+        db.Workout.findOneAndUpdate({ _id: req.params.id }, {
+            $push: {
+                exercises: updateContents
+            }
         })
             .then(data => {
                 res.json(data)
@@ -52,17 +53,22 @@ module.exports = function (app) {
                 // console.log("this is what is being sent" + workout)
 
 
-                for (let i = 0; i < workout.length; i++) {
-                    let total = 0;
-                    for (let x = 0; x < workout[i].exercises.length; x++) {
-                        total += workout[i].exercises[x].duration;
-                        console.log("total:" + total);
+                // for (let i = 0; i < workout.length; i++) {
+                //     let total = 0;
+                //     if (workout[i].exercises.duration) {
+                //         for (let x = 0; x < workout[i].exercises.length; x++) {
+                //             total += workout[i].exercises[x].duration;
+                //             console.log("total:" + total);
+                //         };
 
-                    }
-                    workout[i].totalDuration = total;
+                //     }
+                //     workout[i].totalDuration = total;
+                // }
 
-                }
-                console.log("this is what is being sent after" + workout)
+
+
+
+                console.log("this is what is being sent after", workout)
                 res.json(workout);
             })
             .catch(err => {
@@ -71,12 +77,12 @@ module.exports = function (app) {
     });
     app.get("/api/workouts/range", function (req, res) {
         db.Workout.find({})
-    .then(workouts => {
-      res.json(workouts);
-    })
-    .catch(err => {
-      res.json(err);
-    });
+            .then(workouts => {
+                res.json(workouts);
+            })
+            .catch(err => {
+                res.json(err);
+            });
     });
 
     app.get("/", function (req, res) {
