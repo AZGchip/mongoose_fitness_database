@@ -26,7 +26,7 @@ const WorkoutModel = new Schema({
 function addUp(exercises){
     let total = 0 ;
 exercises.forEach(element => {
-   console.log("this is element: "+ element)
+  
    total += element.duration;
 });
 return total; 

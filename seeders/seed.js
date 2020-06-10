@@ -154,7 +154,7 @@ let workoutSeed = [
 ];
 
 
-console.log("this is db: "+ mongoose)
+
 db.deleteMany({})
   .then(() => db.collection.insertMany(workoutSeed))
   .then(data => {

@@ -4,8 +4,6 @@ const path = require("path")
 module.exports = function (app) {
     //updates contents of created row 
     app.put("/api/workouts/:id", function (req, res) {
-        console.log("post data: ");
-        console.log(req.body);
         let id = req.params.id;
         let rB = req.body;
         let updateContents;
@@ -50,14 +48,13 @@ module.exports = function (app) {
 
             .then(data => {
                 let workout = data
-                console.log("this is what is being sent" + workout)
-
+                
 
                 for (let i = 0; i < workout.length; i++) {
                     let total = 0;            
                         for (let x = 0; x < workout[i].exercises.length; x++) {
                             total += workout[i].exercises[x].duration;
-                            console.log("total:" + total);
+                            
                         };
                     workout[i].totalDuration = total;
                 }
@@ -65,7 +62,7 @@ module.exports = function (app) {
 
 
 
-                console.log("this is what is being sent after", workout)
+               
                 res.json(workout);
             })
             .catch(err => {
@@ -92,7 +89,7 @@ module.exports = function (app) {
 
         db.Workout.create(req.body)
             .then(data => {
-                console.log(data)
+               
                 res.json(data);
             })
             .catch(err => {
