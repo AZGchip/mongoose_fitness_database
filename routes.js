@@ -50,20 +50,20 @@ module.exports = function (app) {
 
             .then(data => {
                 let workout = data
-                // console.log("this is what is being sent" + workout)
+                console.log("this is what is being sent" + workout)
 
 
-                // for (let i = 0; i < workout.length; i++) {
-                //     let total = 0;
-                //     if (workout[i].exercises.duration) {
-                //         for (let x = 0; x < workout[i].exercises.length; x++) {
-                //             total += workout[i].exercises[x].duration;
-                //             console.log("total:" + total);
-                //         };
+                for (let i = 0; i < workout.length; i++) {
+                    let total = 0;
+                    if (workout[i].exercises.duration) {
+                        for (let x = 0; x < workout[i].exercises.length; x++) {
+                            total += workout[i].exercises[x].duration;
+                            console.log("total:" + total);
+                        };
 
-                //     }
-                //     workout[i].totalDuration = total;
-                // }
+                    }
+                    workout[i].totalDuration = total;
+                }
 
 
 
