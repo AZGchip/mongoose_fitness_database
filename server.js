@@ -7,6 +7,7 @@ var PORT = process.env.PORT || 7000;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+//static files 
 app.use(express.static("public"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true,useFindAndModify:false });
 

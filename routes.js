@@ -1,6 +1,6 @@
-
-const db = require("./models/model_hub")
+const db = require("./models/workout")
 const path = require("path")
+
 module.exports = function (app) {
     //updates contents of created row 
     app.put("/api/workouts/:id", function (req, res) {
@@ -28,8 +28,9 @@ module.exports = function (app) {
 
             }
         }
+
         //updates a row with a matching id with the contents of the req.body
-        db.Workout.findOneAndUpdate({ _id: req.params.id }, {
+        db.findOneAndUpdate({ _id: req.params.id }, {
             $push: {
                 exercises: updateContents
             }
@@ -39,38 +40,29 @@ module.exports = function (app) {
             })
     })
 
-    app.get("/exercise", function (req, res) {
-        res.sendFile(path.join(__dirname, "./public/exercise.html"));
-    });
-
+    //returns workouts and adds workout duration 
     app.get("/api/workouts", (req, res) => {
-        db.Workout.find({})
-
+        db.find({})
             .then(data => {
                 let workout = data
-                
-
                 for (let i = 0; i < workout.length; i++) {
-                    let total = 0;            
-                        for (let x = 0; x < workout[i].exercises.length; x++) {
-                            total += workout[i].exercises[x].duration;
-                            
-                        };
+                    let total = 0;
+                    for (let x = 0; x < workout[i].exercises.length; x++) {
+                        total += workout[i].exercises[x].duration;
+
+                    };
                     workout[i].totalDuration = total;
                 }
-
-
-
-
-               
                 res.json(workout);
             })
             .catch(err => {
                 res.json(err);
             });
     });
+
+    //returns all workouts 
     app.get("/api/workouts/range", function (req, res) {
-        db.Workout.find({})
+        db.find({})
             .then(workouts => {
                 res.json(workouts);
             })
@@ -78,30 +70,28 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
-
-    app.get("/", function (req, res) {
-        res.sendFile(path.join(__dirname, "./public/index.html"));
-    });
-    app.get("/stats", function (req, res) {
-        res.sendFile(path.join(__dirname, "./public/stats.html"));
-    });
+    //creates empty model
     app.post("/api/workouts", (req, res) => {
-
-        db.Workout.create(req.body)
+        db.create(req.body)
             .then(data => {
-               
                 res.json(data);
             })
             .catch(err => {
                 res.json(err)
             })
-        // db.Activity.create(body)
-        //     .then(({ _id }) => db.Workout.findOneAndUpdate({}, { $push: { Activity: _id } }, { new: true }))
-        //     .then(data => {
-        //         res.json(data);
-        //     })
-        //     .catch(err => {
-        //         res.json(err);
-        //     });
     });
+
+    //html routes
+    app.get("/exercise", function (req, res) {
+        res.sendFile(path.join(__dirname, "./public/exercise.html"));
+    });
+
+    app.get("/", function (req, res) {
+        res.sendFile(path.join(__dirname, "./public/index.html"));
+    });
+
+    app.get("/stats", function (req, res) {
+        res.sendFile(path.join(__dirname, "./public/stats.html"));
+    });
+
 }
