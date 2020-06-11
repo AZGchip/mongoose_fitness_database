@@ -17,7 +17,7 @@ In this assignment I was provided the front end code of a fitness tracking websi
  For local installation: make sure mongodb is installed and running in the background. run "npm i" in the terminal to install the dependencies. create a noSQL collection called "workout" or run "node seed.js" in the terminal inside the seeders folder. Change the PORT in server.js if needed (default 7000). then run "npm start" to start the server. use the created console logged link in the terminal to open in browser.
       
 ## <a name ="Usage"></a> Usage
-Users can add a new workout or continue a workout if a previous workout exists. users adding or createing a new workout will be prompted to add at least one excercise to the new workout. after filling out an exercise form for either cardio or resistance type exercises, complete can be pressed to save changes and return to the menu, or "add exercise" can be pressed to add the filled out form and start another form to also be added to the same workout. Workout stats can be viewed by clicking on the "fitness tracker dashboard" button on the top left of the menu.
+Users can add a new workout or continue a workout if a previous workout exists. users adding or creating a new workout will be prompted to add at least one excercise to the new workout. after filling out an exercise form for either cardio or resistance type exercises, "complete" can be pressed to save changes and return to the menu, or "add exercise" can be pressed to save the excercise and start another form to also be added to the same workout. Workout stats can be viewed by clicking on the "dashboard" button on the top left of the menu.
 
       
 ## <a name ="contact"></a> Contact me
